@@ -609,5 +609,8 @@ def SCUBA2cal(CSVFILE='archimedes-results-2019_to_2021_example.csv',nominal_450_
     print('Results stored in: {}'.format(output_dirname))
     print('######################\n')
 
+############
+# Run the code (simply replace the filename)
+############
 
 SCUBA2cal('archimedes-results-2019_to_2021_example.csv')
