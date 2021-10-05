@@ -33,6 +33,9 @@ def SCUBA2cal(CSVFILE='archimedes-results-2019_to_2021_example.csv',nominal_450_
     JCMT operations meetings. The input is an archimedes-downloaded CSV file over any time range, including any
     number of sources.
 
+    Recommended time range: 1-2 years
+    Recommended sources: Uranus, CRL 2688, CRL 618, and Arp 220
+
     Steve Mairs, September 2021
 
     :param CSVFILE: The CSV file downloaded from archimedes. Can include mmultiple sources and a mixture of
