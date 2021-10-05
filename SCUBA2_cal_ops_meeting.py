@@ -36,7 +36,8 @@ def SCUBA2cal(CSVFILE='archimedes-results-2019_to_2021_example.csv',nominal_450_
     Steve Mairs, September 2021
 
     :param CSVFILE: The CSV file downloaded from archimedes. Can include mmultiple sources and a mixture of
-    450 and 850 micron data
+    450 and 850 micron data. The three most reliable sources, in order, are Uranus, CRL 2688, and CRL 618.
+    You can also use Arp220. Other sources have not been thoroughly tested and are not regularly observed.
     :param nominal_450_FCFpeak: The expected 450 micron FCF peak value (default = 472)
     :param nominal_850_FCFpeak: The expected 850 micron FCF peak value (default = 495)
     :param nominal_450_FCFpeak: The expected 450 micron FCF arcsec value (default = 3.87)
