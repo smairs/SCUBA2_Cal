@@ -219,11 +219,12 @@ def SCUBA2cal(CSVFILE='archimedes-results-2019_to_2021_example.csv',nominal_450_
     if len(cat_450['filter'].to_list())>0:
         ax_FCFA_UT_450 = sns.scatterplot(x='date',y='fcfasec',
                                          hue=cat_450.targetname.tolist(),style=cat_450.epoch.tolist(),data=cat_450)
-        ax_FCFA_UT_450.xaxis.set_major_locator(mdates.MonthLocator(interval=int(round(time_range_months/5))))
+        ax_FCFA_UT_450.xaxis.set_major_locator(mdates.MonthLocator(interval=int(round(time_range_months/10))))
         plt.axhline(nominal_450_FCFasec,linestyle='dashed',linewidth='2',color='k')
         plt.legend(loc='upper left')
         plt.suptitle('450 Microns, FCF Arcsec')
         plt.ylim(ymax=12)
+        plt.xticks(rotation=20)
         plt.savefig('{}/FCFasec_vs_date_450.png'.format(output_dirname),dpi=300)
         #plt.show()
         plt.clf()
@@ -232,11 +233,12 @@ def SCUBA2cal(CSVFILE='archimedes-results-2019_to_2021_example.csv',nominal_450_
     if len(cat_850['filter'].to_list()) > 0:
         ax_FCFA_UT_850 = sns.scatterplot(x='date',y='fcfasec',
                                          hue=cat_850.targetname.tolist(),style=cat_850.epoch.tolist(),data=cat_850)
-        ax_FCFA_UT_850.xaxis.set_major_locator(mdates.MonthLocator(interval=int(round(time_range_months/5))))
+        ax_FCFA_UT_850.xaxis.set_major_locator(mdates.MonthLocator(interval=int(round(time_range_months/10))))
         plt.axhline(nominal_850_FCFasec,linestyle='dashed',linewidth='2',color='k')
         plt.legend(loc='upper left')
         plt.ylim(ymax=4)
         plt.suptitle('850 Microns, FCF Arcsec')
+        plt.xticks(rotation=20)
         plt.savefig('{}/FCFasec_vs_date_850.png'.format(output_dirname),dpi=300)
         #plt.show()
         plt.clf()
@@ -432,7 +434,7 @@ def SCUBA2cal(CSVFILE='archimedes-results-2019_to_2021_example.csv',nominal_450_
         sns.scatterplot(x='trans',y='fcfasec',hue=cat_450.targetname.tolist(),style=cat_450.epoch.tolist(),data=cat_450)
         plt.axhline(nominal_450_FCFasec,linestyle='dashed',linewidth='2',color='k')
         plt.legend(loc='upper left')
-        plt.ylim(ymax=11)
+        plt.ylim(ymin=0,ymax=14)
         plt.suptitle('450 Microns, FCF Arcsec versus Transmission')
         plt.savefig('{}/FCFasec_vs_trans_450.png'.format(output_dirname),dpi=300)
         #plt.show()
@@ -455,7 +457,7 @@ def SCUBA2cal(CSVFILE='archimedes-results-2019_to_2021_example.csv',nominal_450_
         plt.axhline(nominal_450_FCFpeak,linestyle='dashed',linewidth='2',color='k')
         plt.legend(loc='upper left')
         plt.suptitle('450 Microns, FCF Peak versus Transmission')
-        plt.ylim(ymax=1400)
+        plt.ylim(ymin=0,ymax=1600)
         plt.savefig('{}/FCFpeak_vs_trans_450.png'.format(output_dirname),dpi=300)
         #plt.show()
         plt.clf()
@@ -486,6 +488,7 @@ def SCUBA2cal(CSVFILE='archimedes-results-2019_to_2021_example.csv',nominal_450_
             if len(np.array(stable_index)[np.where(np.array(stable_index)==1)])>2:
                 cat_uranus = cat_uranus2.assign(stable_index=stable_index)
                 cat_uranus_stable = cat_uranus[cat_uranus['stable_index']==1]
+                cat_uranus_stable.dropna(subset=['fcfbeam','fcfasec'],inplace=True)
                 sns.scatterplot(x='fcfasec',y='fcfbeam',hue=cat_uranus_stable.targetname.tolist(),
                                 style=cat_uranus_stable.epoch.tolist(),data=cat_uranus_stable)
                 z         = np.polyfit(cat_uranus_stable['fcfasec'],cat_uranus_stable['fcfbeam'],1)
@@ -518,6 +521,7 @@ def SCUBA2cal(CSVFILE='archimedes-results-2019_to_2021_example.csv',nominal_450_
             if len(np.array(stable_index)[np.where(np.array(stable_index)==1)])>2:
                 cat_uranus = cat_uranus2.assign(stable_index=stable_index)
                 cat_uranus_stable = cat_uranus[cat_uranus['stable_index']==1]
+                cat_uranus_stable.dropna(subset=['fcfbeam','fcfasec'],inplace=True)
                 sns.scatterplot(x='fcfasec',y='fcfbeam',hue=cat_uranus_stable.targetname.tolist(),
                                 style=cat_uranus_stable.epoch.tolist(),data=cat_uranus_stable)
                 z         = np.polyfit(cat_uranus_stable['fcfasec'],cat_uranus_stable['fcfbeam'],1)
@@ -608,9 +612,3 @@ def SCUBA2cal(CSVFILE='archimedes-results-2019_to_2021_example.csv',nominal_450_
     print('')
     print('Results stored in: {}'.format(output_dirname))
     print('######################\n')
-
-############
-# Run the code (simply replace the filename)
-############
-
-SCUBA2cal('archimedes-results-2019_to_2021_example.csv')
