@@ -264,6 +264,7 @@ def SCUBA2cal(CSVFILE='archimedes-results-2019_to_2021_example.csv',nominal_450_
         ax_FCFP_UT_850.xaxis.set_major_locator(mdates.MonthLocator(interval=int(round(time_range_months/5))))
         plt.axhline(nominal_850_FCFpeak,linestyle='dashed',linewidth='2',color='k')
         plt.legend(loc='upper left')
+        plt.ylim(ymin=300,ymax=850)
         plt.suptitle('850 Microns, FCF Peak')
         plt.savefig('{}/FCFpeak_vs_date_850.png'.format(output_dirname),dpi=300)
         #plt.show()
